@@ -107,10 +107,12 @@ void MainWindow::on_action_S_triggered()
         myfile=fileName;
     }
     QFile f1(myfile);
-    f1.open(QIODevice::WriteOnly|QIODevice::Text);
+    auto t=f1.open(QIODevice::WriteOnly|QIODevice::Text);
     QTextStream str(&f1);
     str<<ui->textEdit->toPlainText();
     f1.close();
+    if(t)
+    QMessageBox::information(this,tr("提示"),tr("已保存当前文件编辑"));
 }
 
 //新建文件
@@ -135,6 +137,7 @@ void MainWindow::on_action_N_triggered()
                     this, tr("new txt file"),
                     "/", tr("Txt files(*.txt)"));
     myfile=fileName;
+    this->on_action_S_triggered();
 }
 
 //关闭文件
