@@ -3,6 +3,7 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDebug>
+#include <QPushButton>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -101,8 +102,21 @@ void MainWindow::on_action_S_triggered()
 //新建文件
 void MainWindow::on_action_N_triggered()
 {
-    myfile.clear();
-    ui->textEdit->clear();
+    if(!(myfile==NULL&&ui->textEdit->toPlainText()==NULL)){
+    switch(QMessageBox::question(this,tr("询问"),tr("关闭当前编辑？"),
+                QMessageBox::Ok|QMessageBox::Cancel,QMessageBox::Ok))
+        {
+        case QMessageBox::Ok:
+        this->on_action_C_triggered();//关闭当前编辑
+            break;
+        case QMessageBox::Cancel:
+           return;  //放弃新建文件
+            break;
+        default:
+            break;
+        }
+    }
+
     QString fileName = QFileDialog::getSaveFileName(
                     this, tr("new txt file"),
                     "/", tr("Txt files(*.txt)"));
@@ -112,6 +126,38 @@ void MainWindow::on_action_N_triggered()
 //关闭文件
 void MainWindow::on_action_C_triggered()
 {
+    QMessageBox MsgBox;
+    MsgBox.setWindowTitle(tr("关闭当前文件编辑"));
+    QPushButton *saveButton = MsgBox.addButton(tr("保存"),QMessageBox::ActionRole);
+    QPushButton *unsaveButton = MsgBox.addButton(tr("放弃"),QMessageBox::ActionRole);
+    QPushButton *cancelButton = MsgBox.addButton(QMessageBox::Cancel);
+    if(myfile==NULL)
+    {
+        if(ui->textEdit->toPlainText()!=NULL)
+        {
+            MsgBox.setText(tr("当前有未保存内容，是否保存"));
+            MsgBox.exec();
+        }
+        else
+        {
+            QMessageBox::information(this,tr("提示"),tr("已关闭当前文件编辑"));
+        }
+    }
+    else
+    {
+        MsgBox.setText(tr("是否保存当前修改"));
+        MsgBox.exec();
+    }
+    if(MsgBox.clickedButton() == saveButton)
+    {
+       this->on_action_S_triggered();
+    }
+    if(MsgBox.clickedButton() == unsaveButton)
+    {
+       QMessageBox::information(this,tr("提示"),tr("已关闭当前文件编辑"));
+    }
+    if(MsgBox.clickedButton() == cancelButton)
+       return;
     myfile.clear();
     ui->textEdit->clear();
 }
