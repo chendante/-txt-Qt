@@ -62,6 +62,20 @@ void MainWindow::on_action_A_triggered()
 //打开新文件
 void MainWindow::on_action_O_triggered()
 {
+    if(!(myfile==NULL&&ui->textEdit->toPlainText()==NULL)){
+    switch(QMessageBox::question(this,tr("询问"),tr("关闭当前编辑？"),
+                QMessageBox::Ok|QMessageBox::Cancel,QMessageBox::Ok))
+        {
+        case QMessageBox::Ok:
+        this->on_action_C_triggered();//关闭当前编辑
+            break;
+        case QMessageBox::Cancel:
+           return;  //放弃打开新文件
+            break;
+        default:
+            return;
+        }
+    }
     QString fileName = QFileDialog::getOpenFileName(
                     this, tr("open txt file"),
                     "/", tr("Txt files(*.txt)"));
@@ -113,7 +127,7 @@ void MainWindow::on_action_N_triggered()
            return;  //放弃新建文件
             break;
         default:
-            break;
+            return;
         }
     }
 
