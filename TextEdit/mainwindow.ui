@@ -71,6 +71,9 @@
    <property name="text">
     <string>新建文件(&amp;N)</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+N</string>
+   </property>
   </action>
   <action name="action_O">
    <property name="icon">
@@ -79,6 +82,9 @@
    </property>
    <property name="text">
     <string>打开文件(&amp;O)</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+O</string>
    </property>
   </action>
   <action name="action_W">
@@ -89,6 +95,9 @@
    <property name="text">
     <string>查找(&amp;W)</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+W</string>
+   </property>
   </action>
   <action name="action_S">
    <property name="icon">
@@ -97,6 +106,9 @@
    </property>
    <property name="text">
     <string>保存文件(&amp;S)</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+S</string>
    </property>
   </action>
   <action name="action_A">
@@ -107,6 +119,9 @@
    <property name="text">
     <string>另存为(&amp;A)</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+A</string>
+   </property>
   </action>
   <action name="action_C">
    <property name="icon">
@@ -115,6 +130,9 @@
    </property>
    <property name="text">
     <string>关闭(&amp;C)</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+C</string>
    </property>
   </action>
  </widget>
